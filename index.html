@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>What Is My IP Address?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111827;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: #1f2937;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    }
+
+    .ip {
+      font-size: 28px;
+      font-weight: bold;
+      color: #38bdf8;
+      margin: 20px 0;
+    }
+
+    .small {
+      color: #d1d5db;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>What Is My IP Address?</h1>
+    <p>Your public IP address is:</p>
+    <div class="ip" id="ip">Loading...</div>
+
+    <p id="location">Checking approximate location...</p>
+
+    <p class="small">
+      Educational demo: this page shows your own public IP address.
+      No IP addresses are stored by this website.
+    </p>
+  </div>
+
+  <script>
+    async function loadIP() {
+      const response = await fetch("/ip");
+      const data = await response.json();
+
+      document.getElementById("ip").textContent = data.ip;
+      document.getElementById("location").textContent =
+        `${data.city || "Unknown city"}, ${data.country || "Unknown country"}`;
+    }
+
+    loadIP();
+  </script>
+</body>
+</html>
